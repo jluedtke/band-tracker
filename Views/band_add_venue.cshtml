@@ -1,0 +1,20 @@
+<h1>Add a venue for @Model["band"].Name</h1>
+@if (@Model["venues"].Count == 0)
+{
+  <h4>It appears there are no venues to add. :( <a href="/">Create a venue!</a></h4>
+}
+else
+{
+  <form class="" action='/band/@Model["band"].Id/add' method="post">
+    <input type="hidden" name="_method" value="PATCH">
+    <select class="" name="new-venue">
+      @foreach (var venue in @Model["venues"])
+      {
+        <option value="@venue.Id">@venue.Name</option>
+      }
+    </select>
+    <button type="submit" name="button">Add</button>
+  </form>
+}
+<h5><a href='/band/@Model["band"].Id'>Go back to @Model["band"].Name's page.</a></h5>
+<h5><a href="/">Home</a></h5>
