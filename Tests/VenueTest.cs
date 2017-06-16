@@ -26,8 +26,8 @@ namespace BandTracker
     public void Equals_ObjectsEqualEachOther()
     {
       //Arrange
-      Venue venueOne = new Venue("The Knitting Factory");
-      Venue venueTwo = new Venue("The Knitting Factory");
+      Venue venueOne = new Venue("Master Onion's Dojo");
+      Venue venueTwo = new Venue("Master Onion's Dojo");
 
       //Assert
       Assert.Equal(venueOne, venueTwo);
@@ -37,7 +37,7 @@ namespace BandTracker
     public void Save_ObjectAddedToDatabase()
     {
       //Arrange
-      Venue testVenue = new Venue("The Knitting Factory");
+      Venue testVenue = new Venue("Master Onion's Dojo");
       testVenue.Save();
 
       //Act
