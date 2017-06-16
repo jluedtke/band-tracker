@@ -19,4 +19,11 @@ else
   }
 }
 <hr />
+<form action='/venue/@Model["venue"].Id' method="post">
+  <input type="hidden" name="_method" value="PATCH">
+  <label for="new-venue-name">Venue's new name: </label>
+  <input type="text" name="new-venue-name">
+  <button type="submit" name="button">Submit</button>
+</form>
+<hr />
 <h5><a href="/">Home</a></h5>

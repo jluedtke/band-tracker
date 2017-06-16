@@ -37,6 +37,15 @@ namespace BandTracker
         model.Add("venue", foundVenue);
         return View["venue.cshtml", model];
       };
+      Patch["/venue/{id}"] = param => {
+        Venue foundVenue = Venue.Find(param.id);
+        foundVenue.Update(Request.Form["new-venue-name"]);
+        List<Band> allBands = foundVenue.GetBands();
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        model.Add("bands", allBands);
+        model.Add("venue", foundVenue);
+        return View["venue.cshtml", model];
+      };
       Delete["/venue/{id}/delete"] = param => {
         Venue foundVenue = Venue.Find(param.id);
         foundVenue.Delete();
