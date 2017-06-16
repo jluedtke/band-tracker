@@ -50,6 +50,7 @@ namespace BandTracker
 
     public void Dispose()
     {
+      Band.DeleteAll();
       Venue.DeleteAll();
       Venue.DeleteAllFromJoin();
     }
