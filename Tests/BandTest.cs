@@ -74,7 +74,7 @@ namespace BandTracker
       Band testBand = new Band("Parappa the Rappa");
       testBand.Save();
 
-      Venue testVenue = new Venue("The Knitting Factory");
+      Venue testVenue1 = new Venue("The Knitting Factory");
       testVenue1.Save();
 
       Venue testVenue2 = new Venue("Master Onion's Dojo");
