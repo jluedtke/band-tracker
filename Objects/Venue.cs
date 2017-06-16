@@ -143,7 +143,7 @@ namespace BandTracker
 
       SqlCommand cmd = new SqlCommand("INSERT INTO venues (name) OUTPUT INSERTED.id VALUES (@Name);", conn);
 
-      cmd.Parameters.Add(new SqlParameter("@Name", this.Name));
+      cmd.Parameters.Add(new SqlParameter("@Name", System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(this.Name.ToLower())));
       SqlDataReader rdr = cmd.ExecuteReader();
 
       while(rdr.Read())
