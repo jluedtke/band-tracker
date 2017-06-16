@@ -166,7 +166,24 @@ namespace BandTracker
       List<Venue> result = Venue.GetAll();
 
       //Assert
-      Assert.Equal(allVenues, result);
+      Assert.Equal(2, result.Count);
+    }
+
+    [Fact]
+    public void Merge_UpdatesDataThroughMerge()
+    {
+      //Arrange
+      Venue venueOne = new Venue("Master Onion's Dojo", 1);
+      venueOne.Save();
+      Venue venueTwo = new Venue("Club Fun", venueOne.Id);
+      List<Venue> venueTwoList = new List<Venue>{venueTwo};
+
+      //Act
+      Venue.AddToSourceTable(venueTwoList);
+      Venue.Merge();
+      List<Venue> result = Venue.GetAll();
+      //Assert
+      Assert.Equal(venueTwoList, result);
     }
 
 
