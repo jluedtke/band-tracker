@@ -1,0 +1,18 @@
+<h1>@Model["venue"].Name</h1>
+<hr />
+@if (@Model["bands"].Count == 0)
+{
+  <h4>There are no bands playing at @Model["venue"].Name. <a href='/venue/@Model["venue"].Id/add'>Add One.</a></h4>
+}
+else
+{
+  <a href='/venue/@Model["venue"].Id/add'>Add a Band.</a>
+  <hr />
+  <h3>All Bands in this Venue</h3>
+  @foreach (var band in @Model["bands"])
+  {
+    <h4><a href="/band/@band.Id">@band.Name</a></h4>
+  }
+}
+<hr />
+<h5><a href="/">Home</a></h5>

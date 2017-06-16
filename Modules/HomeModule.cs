@@ -30,6 +30,32 @@ namespace BandTracker
         model.Add("venues", allVenues);
         return View["index.cshtml", model];
       };
+      Get["/venue/{id}"] = param => {
+        Venue foundVenue = Venue.Find(param.id);
+        List<Band> allBands = foundVenue.GetBands();
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        model.Add("bands", allBands);
+        model.Add("venue", foundVenue);
+        return View["venue.cshtml", model];
+      };
+      Get["/venue/{id}/add"] = param => {
+        Venue foundVenue = Venue.Find(param.id);
+        List<Band> allBands = Band.GetAll();
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        model.Add("bands", allBands);
+        model.Add("venue", foundVenue);
+        return View["venue_add_band.cshtml", model];
+      };
+      Patch["/venue/{id}/add"] = param => {
+        Venue foundVenue = Venue.Find(param.id);
+        Band addedBand = Band.Find(Request.Form["new-band"]);
+        foundVenue.AddBand(addedBand);
+        List<Band> allBands = Band.GetAll();
+        Dictionary<string, object> model = new Dictionary<string, object>();
+        model.Add("bands", allBands);
+        model.Add("venue", foundVenue);
+        return View["venue_add_band.cshtml", model];
+      };
     }
   }
 }
