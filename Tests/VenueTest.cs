@@ -114,6 +114,27 @@ namespace BandTracker
       Assert.Equal(newName, testVenue.Name);
     }
 
+    [Fact]
+    public void Delete_DeletesVenueAssociationsFromDatatbase_VenueList()
+    {
+      //arrange
+      Band testBand = new Band("Parappa the Rappa");
+      testBand.Save();
+
+      Venue testVenue = new Venue("Master Onion's Dojo");
+      testVenue.Save();
+
+      //act
+      testVenue.AddBand(testBand);
+      testVenue.Delete();
+
+      List<Venue> resultBandVenues = testBand.GetVenues();
+      List<Venue> testBandVenues = new List<Venue> {};
+
+      //assert
+      Assert.Equal(testBandVenues, resultBandVenues);
+    }
+
 
     public void Dispose()
     {
