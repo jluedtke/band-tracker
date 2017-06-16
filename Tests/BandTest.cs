@@ -96,6 +96,7 @@ namespace BandTracker
       Band.DeleteAll();
       Venue.DeleteAll();
       Venue.DeleteAllFromJoin();
+      Venue.DeleteAllFromSource();
     }
   }
 }

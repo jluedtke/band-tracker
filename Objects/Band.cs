@@ -102,7 +102,7 @@ namespace BandTracker
 
       SqlCommand cmd = new SqlCommand("INSERT INTO bands (name) OUTPUT INSERTED.id VALUES (@Name);", conn);
 
-      cmd.Parameters.Add(new SqlParameter("@Name", System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(this.Name.ToLower())));
+      cmd.Parameters.Add(new SqlParameter("@Name", this.Name));
       SqlDataReader rdr = cmd.ExecuteReader();
 
       while(rdr.Read())

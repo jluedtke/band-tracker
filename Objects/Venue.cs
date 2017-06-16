@@ -14,7 +14,79 @@ namespace BandTracker
       Id = id;
       Name = name;
     }
+    /////////////////////////////// NOT NORMAL STUFF ///////////////////////////////
 
+    // MAYBE IDK I DONT THINK I NEED THIS
+    // public static int Count(List<Venue> allVenues)
+    // {
+    //   int i = 0;
+    //   foreach (Venue venue in allVenues)
+    //   {
+    //     venue.AddToSourceTable(i);  //Add to source table
+    //     i++;
+    //   }
+    // }
+
+    public static List<Venue> GetAllFromSource()
+    {
+      List<Venue> allVenues = new List<Venue>();
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM venues_source;", conn);
+      SqlDataReader rdr = cmd.ExecuteReader();
+      while (rdr.Read())
+      {
+        int venueId = rdr.GetInt32(0);
+        string venueName = rdr.GetString(1);
+        Venue newVenue = new Venue(venueName, venueId);
+        allVenues.Add(newVenue);
+      }
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        rdr.Close();
+      }
+      return allVenues;
+    }
+
+    public static void AddToSourceTable(List<Venue> allVenues)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      foreach (Venue venue in allVenues)
+      {
+        if (venue.Name == "")
+        {
+          return;
+        }
+        SqlCommand cmd = new SqlCommand("INSERT INTO venues_source (name) OUTPUT INSERTED.id VALUES (@Name);", conn);
+
+        cmd.Parameters.Add(new SqlParameter("@Name", System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(venue.Name.ToLower())));
+        SqlDataReader rdr = cmd.ExecuteReader();
+
+        while(rdr.Read())
+        {
+          venue.Id = rdr.GetInt32(0);
+        }
+        if (rdr != null)
+        {
+          rdr.Close();
+        }
+      }
+
+      if (conn != null)
+      {
+        conn.Close();
+      }
+    }
+
+
+/////////////////////////////// NORMAL STUFF ///////////////////////////////
     public void Delete()
     {
       SqlConnection conn = DB.Connection();
@@ -217,5 +289,15 @@ namespace BandTracker
       SqlCommand cmd = new SqlCommand("DELETE FROM bands_venues;", conn);
       cmd.ExecuteNonQuery();
       conn.Close();
-    }  }
+    }
+    //Turn to Drop TABLE later
+    public static void DeleteAllFromSource()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+      SqlCommand cmd = new SqlCommand("DELETE FROM venues_source;", conn);
+      cmd.ExecuteNonQuery();
+      conn.Close();
+    }
+  }
 }

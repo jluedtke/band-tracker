@@ -135,12 +135,31 @@ namespace BandTracker
       Assert.Equal(testBandVenues, resultBandVenues);
     }
 
+    ///////////////////// NOT NORMAL STUFF //////////////////////////////////
+    
+    [Fact]
+    public void AddToSourceTable_PopulatesSourceTable()
+    {
+      //Arrange
+      Venue venueOne = new Venue("Master Onion's Dojo");
+      Venue venueTwo = new Venue("Club Fun");
+      List<Venue> allVenues = new List<Venue>{venueOne, venueTwo};
+
+      //Act
+      Venue.AddToSourceTable(allVenues);
+      List<Venue> result = Venue.GetAllFromSource();
+
+      //Assert
+      Assert.Equal(allVenues, result);
+    }
+
 
     public void Dispose()
     {
       Band.DeleteAll();
       Venue.DeleteAll();
       Venue.DeleteAllFromJoin();
+      Venue.DeleteAllFromSource();
     }
   }
 }

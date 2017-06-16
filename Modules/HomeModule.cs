@@ -97,8 +97,24 @@ namespace BandTracker
         return View["band_add_venue.cshtml", model];
       };
 
+
+////// Seperation of Logic sucks, but it's fine for all of the others ///////
+///// i.e please don't fail me for this, I couldn't think of another way to add multiple objects through a single form /////
       Get["/venue/manager"] = _ => {
         List<Venue> allVenues = Venue.GetAll();
+        return View["venue_manager.cshtml", allVenues];
+      };
+      Patch["venue/manager"] = _ => {
+        List<Venue> allVenues = Venue.GetAll();
+        List<Venue> venues = new List<Venue>{};
+        int i = 0;
+        while(i < allVenues.Count)
+        {
+          Venue newVenue = new Venue(Request.Form["venue-name-" + i], Request.Form["venue-id-" + i]);
+          i++;
+        }
+        Venue.AddToSourceTable(venues);
+
         return View["venue_manager.cshtml", allVenues];
       };
     }
