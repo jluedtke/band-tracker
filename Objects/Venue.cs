@@ -16,16 +16,22 @@ namespace BandTracker
     }
     /////////////////////////////// NOT NORMAL STUFF ///////////////////////////////
 
-    // MAYBE IDK I DONT THINK I NEED THIS
-    // public static int Count(List<Venue> allVenues)
-    // {
-    //   int i = 0;
-    //   foreach (Venue venue in allVenues)
-    //   {
-    //     venue.AddToSourceTable(i);  //Add to source table
-    //     i++;
-    //   }
-    // }
+    public static void Merge()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+      SqlCommand cmd = new SqlCommand("SET IDENTITY_INSERT venues ON;", conn);
+      cmd.ExecuteNonQuery();
+
+      cmd = new SqlCommand("MERGE INTO venues AS TARGET USING venues_source AS SOURCE ON (TARGET.id = SOURCE.id) WHEN MATCHED AND TARGET.name <> SOURCE.name THEN UPDATE SET TARGET.name = SOURCE.name WHEN NOT MATCHED BY TARGET THEN INSERT (id, name) VALUES (SOURCE.id, SOURCE.name) WHEN NOT MATCHED BY SOURCE THEN DELETE OUTPUT $action, DELETED.id AS TargetId, DELETED.name AS TargetName, INSERTED.id AS SourceId, INSERTED.name AS SourceName;", conn);
+      cmd.ExecuteNonQuery();
+
+      cmd = new SqlCommand("SET IDENTITY_INSERT venues OFF;", conn);
+      cmd.ExecuteNonQuery();
+
+      conn.Close();
+    }
+
 
     public static List<Venue> GetAllFromSource()
     {
