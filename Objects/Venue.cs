@@ -15,6 +15,62 @@ namespace BandTracker
       Name = name;
     }
 
+    public void Update(string newName)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("UPDATE venues SET name=@Name OUTPUT INSERTED.name WHERE id=@VenueId;", conn);
+
+      cmd.Parameters.Add(new SqlParameter("@Name", newName));
+      cmd.Parameters.Add(new SqlParameter("@VenueId", this.Id));
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      while(rdr.Read())
+      {
+        this.Name = rdr.GetString(0);
+      }
+
+      if(rdr != null)
+      {
+        rdr.Close();
+      }
+      if(conn != null)
+      {
+        conn.Close();
+      }
+    }
+
+    public static Venue Find(int id)
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+
+      SqlCommand cmd = new SqlCommand("SELECT * FROM venues WHERE id=@VenueId;", conn);
+      cmd.Parameters.Add(new SqlParameter("@VenueId", id.ToString()));
+      SqlDataReader rdr = cmd.ExecuteReader();
+
+      int foundVenueId = 0;
+      string foundVenueName = null;
+
+      while(rdr.Read())
+      {
+        foundVenueId = rdr.GetInt32(0);
+        foundVenueName = rdr.GetString(1);
+      }
+      Venue foundVenue = new Venue(foundVenueName, foundVenueId);
+
+      if (rdr != null)
+      {
+        rdr.Close();
+      }
+      if (conn != null)
+      {
+        conn.Close();
+      }
+      return foundVenue;
+    }
+
     public List<Band> GetBands()
     {
       SqlConnection conn = DB.Connection();
