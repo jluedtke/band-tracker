@@ -62,6 +62,10 @@ namespace BandTracker
 
     public void Save()
     {
+      if (this.Name == "")
+      {
+        return;
+      }
       SqlConnection conn = DB.Connection();
       conn.Open();
 

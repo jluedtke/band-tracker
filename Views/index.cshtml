@@ -1,0 +1,25 @@
+<h1>Homepage!</h1>
+<hr />
+<form action="/" method="post">
+  <h3>Add a Venue</h3>
+  <label for="venue-name">Venue Name: </label>
+  <input type="text" name="venue-name">
+  <button type="submit" name="button">Submit</button>
+  <br>
+  <h3>Add a Band</h3>
+  <label for="band-name">Band Name: </label>
+  <input type="text" name="band-name">
+  <button type="submit" name="button">Submit</button>
+</form>
+<hr />
+<h3>All Venues</h3>
+@foreach (var venue in @Model["venues"])
+{
+  <h5><a href="/venue/@venue.Id">@venue.Name</a></h5>
+}
+
+<h3>All Bands</h3>
+@foreach (var band in @Model["bands"])
+{
+  <h5><a href="/band/@band.Id">@band.Name</a></h5>
+}
