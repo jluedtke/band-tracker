@@ -33,6 +33,20 @@ namespace BandTracker
       Assert.Equal(venueOne, venueTwo);
     }
 
+    [Fact]
+    public void Save_ObjectAddedToDatabase()
+    {
+      //Arrange
+      Venue testVenue = new Venue("The Knitting Factory");
+      testVenue.Save();
+
+      //Act
+      List<Venue> result = Venue.GetAll();
+      List<Venue> testList = new List<Venue>{testVenue};
+
+      //Assert
+      Assert.Equal(testList, result);
+    }
 
     public void Dispose()
     {
