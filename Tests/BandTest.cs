@@ -34,6 +34,21 @@ namespace BandTracker
       Assert.Equal(bandOne, bandTwo);
     }
 
+    [Fact]
+    public void Save_ObjectAddedToDatabase()
+    {
+      //Arrange
+      Band testBand = new Band("Parappa the Rappa");
+      testBand.Save();
+
+      //Act
+      List<Band> result = Band.GetAll();
+      List<Band> testList = new List<Band>{testBand};
+
+      //Assert
+      Assert.Equal(testList, result);
+    }
+
 
     public void Dispose()
     {
