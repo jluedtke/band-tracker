@@ -1,4 +1,8 @@
 <h1>@Model["venue"].Name</h1>
+<form action='/venue/@Model["venue"].Id/delete' method="post">
+  <input type="hidden" name="_method" value="DELETE">
+  <button type="submit" name="button">Delete Venue</button>
+</form>
 <hr />
 @if (@Model["bands"].Count == 0)
 {

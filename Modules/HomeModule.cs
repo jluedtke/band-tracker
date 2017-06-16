@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using Nancy;
@@ -37,6 +36,11 @@ namespace BandTracker
         model.Add("bands", allBands);
         model.Add("venue", foundVenue);
         return View["venue.cshtml", model];
+      };
+      Delete["/venue/{id}/delete"] = param => {
+        Venue foundVenue = Venue.Find(param.id);
+        foundVenue.Delete();
+        return View["delete.cshtml"];
       };
       Get["/venue/{id}/add"] = param => {
         Venue foundVenue = Venue.Find(param.id);
