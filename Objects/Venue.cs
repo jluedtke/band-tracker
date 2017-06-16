@@ -15,6 +15,36 @@ namespace BandTracker
       Name = name;
     }
 
+    public override bool Equals(System.Object otherVenue)
+    {
+      if (!(otherVenue is Venue))
+      {
+        return false;
+      }
+      else
+      {
+        Venue newVenue = (Venue) otherVenue;
+        bool idEquals = (this.Id == newVenue.Id);
+        bool nameEquals = (this.Name == newVenue.Name);
+        return (idEquals && nameEquals);
+      }
+    }
 
-  }
+
+    public static void DeleteAll()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+      SqlCommand cmd = new SqlCommand("DELETE FROM venues;", conn);
+      cmd.ExecuteNonQuery();
+      conn.Close();
+    }
+    public static void DeleteAllFromJoin()
+    {
+      SqlConnection conn = DB.Connection();
+      conn.Open();
+      SqlCommand cmd = new SqlCommand("DELETE FROM bands_venues;", conn);
+      cmd.ExecuteNonQuery();
+      conn.Close();
+    }  }
 }
