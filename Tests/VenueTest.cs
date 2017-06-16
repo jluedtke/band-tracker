@@ -81,7 +81,7 @@ namespace BandTracker
 
       testVenue.AddBand(testBand1);
       testVenue.AddBand(testBand2);
-      List<Band> result = testBand.GetBands();
+      List<Band> result = testVenue.GetBands();
       List<Band> testList = new List<Band> {testBand1, testBand2};
 
       //Assert
