@@ -89,6 +89,32 @@ namespace BandTracker
       //assert
     }
 
+    [Fact]
+    public void Find_FindsVenueInDB()
+    {
+      //arrange
+      Venue testVenue = new Venue("Master Onion's Dojo");
+      testVenue.Save();
+
+      Venue foundVenue = Venue.Find(testVenue.Id);
+      //assert
+      Assert.Equal(foundVenue, testVenue);
+    }
+
+    [Fact]
+    public void Update_UpdatesInfoInDB()
+    {
+      //arrange
+      string newName = "Club Fun";
+      Venue testVenue = new Venue("Master Onion's Dojo");
+      testVenue.Save();
+
+      testVenue.Update(newName);
+      //assert
+      Assert.Equal(newName, testVenue.Name);
+    }
+
+
     public void Dispose()
     {
       Band.DeleteAll();
