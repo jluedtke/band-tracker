@@ -48,6 +48,47 @@ namespace BandTracker
       Assert.Equal(testList, result);
     }
 
+    [Fact]
+    public void AddBand_AddBandToVenue()
+    {
+      //arrange
+      Venue testVenue = new Venue("Master Onion's Dojo");
+      testVenue.Save();
+
+      Band testBand = new Band("Parappa the Rappa");
+      testBand.Save();
+
+      testVenue.AddBand(testBand);
+
+      List<Band> result = testVenue.GetBands();
+      List<Band> testList = new List<Band> {testBand};
+      //assert
+      Assert.Equal(result, testList);
+    }
+
+    [Fact]
+    public void GetBands_ReturnsAllBands()
+    {
+      //arrange
+      Venue testVenue = new Venue("Master Onion's Dojo");
+      testVenue.Save();
+
+      Band testBand1 = new Band("Parappa the Rappa");
+      testBand1.Save();
+
+      Band testBand2 = new Band("Mega Parappa the Rappa");
+      testBand2.Save();
+
+      testVenue.AddBand(testBand1);
+      testVenue.AddBand(testBand2);
+      List<Band> result = testBand.GetBands();
+      List<Band> testList = new List<Band> {testBand1, testBand2};
+
+      //Assert
+      Assert.Equal(testList, result);
+      //assert
+    }
+
     public void Dispose()
     {
       Band.DeleteAll();

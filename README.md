@@ -10,7 +10,7 @@
 | Program starts with an empty database. | N/A | N/A | Program must start with an empty database before any tests are run so data is not corrupted. |
 | Program database values equal each other. | Venue1:"Knitting Factory" == Venue1:"Knitting Factory" | true | Program must recognize equal values in databases before any manipulation can be completed. |
 | Program can add a venue to the database. | Venue1:"Knitting Factory" | Venue1:"Knitting Factory" | Before the program can manipulate and organize data, it must be able to save initial data inserted in to it. |
-| Program can add bands to database. | Band1:"Mister Wives"  Band2:"Cage the Elephant" | Band1:"Mister Wives"  Band2:"Cage the Elephant" | Once the program is able to add venues to the database, adding bands is simply another step. |
+| Program can add bands to database. | Band1:"Parappa the Rappa"  Band2:"Cage the Elephant" | Band1:"Parappa the Rappa"  Band2:"Cage the Elephant" | Once the program is able to add venues to the database, adding bands is simply another step. |
 | Program can add bands to multiple venues. | Band1: Venue1, Venue3 | Band1: Venue1, Venue3 | It's the creation of the many to many relationship between bands and venues. |
 | Program can add venues to multiple bands. | Venue1: Band1, Band3 | Venue1: Band1, Band3 | It's a further application of the many to many relationship. |
 | Program can update a venue's information | Venue1:"Mouse Trap House" | Venue1:"Mouse Trap House" NOT Venue1:"Knitting Factory" | Program must be able to manipulate venues' data within a database. |
