@@ -97,7 +97,10 @@ namespace BandTracker
         return View["band_add_venue.cshtml", model];
       };
 
-
+      Get["/venue/manager"] = _ => {
+        List<Venue> allVenues = Venue.GetAll();
+        return View["venue_manager.cshtml", allVenues];
+      };
     }
   }
 }
