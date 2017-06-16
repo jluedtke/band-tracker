@@ -2,11 +2,10 @@
 <hr />
 <h3>Venue Manager Instructions</h3>
 <h5>To UPDATE: Change an existing Venue's Name, but NOT the ID</h5>
-<h5>To INSERT: In the blank space at the bottom, insert a new Name and ID (ID MUST be different than an existing ID)</h5>
-<h5>To DELETE: Erase an existing Venue's Name AND ID.</h5>
+<h5>To INSERT: In the blank space at the bottom, insert a new Name</h5>
+<h5>To DELETE: Erase an existing Venue's Name OR ID.</h5>
 <hr />
 <form action="/venue/manager" method="post">
-  <input type="hidden" name="_method" value="PATCH"> @* I have no clue *@
   @{int i = 0;}
   @foreach (var venue in @Model)
   {
@@ -19,8 +18,7 @@
   }
   <label>Venue Name: </label>
   <input type="text" name="venue-name-@i">
-  <label>Venue Id: </label>
-  <input type="text" name="venue-id-@i">
+  <input type="hidden" name="venue-id-@i" value="0">
   <br><br>
   <button type="submit" name="button">Submit All Changes</button>
 </form>

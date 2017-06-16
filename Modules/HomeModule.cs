@@ -49,7 +49,7 @@ namespace BandTracker
       Delete["/venue/{id}/delete"] = param => {
         Venue foundVenue = Venue.Find(param.id);
         foundVenue.Delete();
-        return View["delete.cshtml"];
+        return View["success.cshtml"];
       };
       Get["/venue/{id}/add"] = param => {
         Venue foundVenue = Venue.Find(param.id);
@@ -104,18 +104,26 @@ namespace BandTracker
         List<Venue> allVenues = Venue.GetAll();
         return View["venue_manager.cshtml", allVenues];
       };
-      Patch["venue/manager"] = _ => {
+      Post["venue/manager"] = _ => {
         List<Venue> allVenues = Venue.GetAll();
         List<Venue> venues = new List<Venue>{};
         int i = 0;
-        while(i < allVenues.Count)
+        while(i < allVenues.Count + 1)
         {
-          Venue newVenue = new Venue(Request.Form["venue-name-" + i], Request.Form["venue-id-" + i]);
-          i++;
+          if (Request.Form["venue-name-" + i] == "" || Request.Form["venue-id-" + i] == "")
+          {
+            i++;
+          }
+          else
+          {
+            Venue newVenue = new Venue(Request.Form["venue-name-" + i], Request.Form["venue-id-" + i]);
+            venues.Add(newVenue);
+            i++;
+          }
         }
         Venue.AddToSourceTable(venues);
-
-        return View["venue_manager.cshtml", allVenues];
+        Venue.Merge();
+        return View["success.cshtml", allVenues];
       };
     }
   }

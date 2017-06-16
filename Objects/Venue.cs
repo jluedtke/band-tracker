@@ -20,14 +20,9 @@ namespace BandTracker
     {
       SqlConnection conn = DB.Connection();
       conn.Open();
-      // SqlCommand cmd = new SqlCommand("SET IDENTITY_INSERT venues ON;", conn);
-      // cmd.ExecuteNonQuery();
 
       SqlCommand cmd = new SqlCommand("MERGE INTO venues AS TARGET USING venues_source AS SOURCE ON (TARGET.id = SOURCE.id) WHEN MATCHED AND TARGET.name <> SOURCE.name THEN UPDATE SET TARGET.name = SOURCE.name WHEN NOT MATCHED BY TARGET THEN INSERT (name) VALUES (SOURCE.name) WHEN NOT MATCHED BY SOURCE THEN DELETE OUTPUT $action, DELETED.id AS TargetId, DELETED.name AS TargetName, INSERTED.id AS SourceId, INSERTED.name AS SourceName;", conn);
       cmd.ExecuteNonQuery();
-      //
-      // cmd = new SqlCommand("SET IDENTITY_INSERT venues OFF;", conn);
-      // cmd.ExecuteNonQuery();
 
       conn.Close();
     }
@@ -64,13 +59,17 @@ namespace BandTracker
       SqlConnection conn = DB.Connection();
       conn.Open();
 
+      SqlCommand cmd = new SqlCommand("DELETE FROM venues_source;", conn);
+      cmd.ExecuteNonQuery();
+
+
       foreach (Venue venue in allVenues)
       {
         if (venue.Name == "")
         {
           return;
         }
-        SqlCommand cmd = new SqlCommand("SET IDENTITY_INSERT venues_source ON; INSERT INTO venues_source (id, name) OUTPUT INSERTED.id VALUES (@Id, @Name); SET IDENTITY_INSERT venues_source OFF;", conn);
+        cmd = new SqlCommand("SET IDENTITY_INSERT venues_source ON; INSERT INTO venues_source (id, name) OUTPUT INSERTED.id VALUES (@Id, @Name); SET IDENTITY_INSERT venues_source OFF;", conn);
 
         cmd.Parameters.Add(new SqlParameter("@Name", System.Threading.Thread.CurrentThread.CurrentCulture.TextInfo.ToTitleCase(venue.Name.ToLower())));
         cmd.Parameters.Add(new SqlParameter("@Id", venue.Id));
