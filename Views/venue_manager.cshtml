@@ -1,9 +1,9 @@
 <h1>Venue Manager</h1>
 <hr />
 <h3>Venue Manager Instructions</h3>
-<h5>To UPDATE: Change an existing Venue's Name, but NOT the ID</h5>
+<h5>To UPDATE: Change an existing Venue's Name</h5>
 <h5>To INSERT: In the blank space at the bottom, insert a new Name</h5>
-<h5>To DELETE: Erase an existing Venue's Name OR ID.</h5>
+<h5>To DELETE: Erase an existing Venue's Name</h5>
 <hr />
 <form action="/venue/manager" method="post">
   @{int i = 0;}
@@ -11,8 +11,7 @@
   {
     <label>Venue Name: </label>
     <input type="text" name="venue-name-@i" value="@venue.Name">
-    <label>Venue Id: </label>
-    <input type="text" name="venue-id-@i" value="@venue.Id">
+    <input type="hidden" name="venue-id-@i" value="@venue.Id">
     <br><br>
     @{i++;}
   }
