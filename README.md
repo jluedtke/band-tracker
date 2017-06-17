@@ -26,7 +26,7 @@
 3. Install <a href="https://www.asp.net/">ASP.NET</a>, <a href="https://www.visualstudio.com/">Visual Studio</a>, <a href="https://www.nuget.org/packages/Nancy/">Nancy</a>, <a href="https://xunit.github.io/">xUnit</a>, and <a href="https://www.mysql.com/downloads/">SQL</a>
 4. Open with your choice of text editor
 5. Open Windows PowerShell
-6. In PowerShell, input the commands >>sqlcmd -S "(localdb)\mssqllocaldb">>CREATE DATABASE band_tracker>>GO>>USE band_tracker>>GO>>CREATE TABLE venues(id INT IDENTITY(1,1), name VARCHAR(100));>>GO>>CREATE TABLE bands(id INT IDENTITY(1,1), name VARCHAR(50));>>GO>>CREATE TABLE bands_venues (id INT IDENTITY(1,1), band_id INT, venue_id INT)>>GO>>QUIT
+6. In PowerShell, input the commands >>sqlcmd -S "(localdb)\mssqllocaldb">>CREATE DATABASE band_tracker>>GO>>USE band_tracker>>GO>>CREATE TABLE venues(id INT IDENTITY(1,1), name VARCHAR(100));>>GO>>CREATE TABLE bands(id INT IDENTITY(1,1), name VARCHAR(50));>>GO>>CREATE TABLE bands_venues (id INT IDENTITY(1,1), band_id INT, venue_id INT)>>GO>>CREATE TABLE venues_source (id INT IDENTITY(1,1), name VARCHAR(100))>>GO>>QUIT
 7. Inside of SQL Management Studio, right click the database band_tracker, navigate to Tasks, then Back Up. Click Okay.
 8. Right click the database again, navigate to Tasks, then Restore. Make the database name band_tracker_test. Click Okay.
 9. Navigate to the repository file path (usually /Users/[UserName]/Desktop/band-tracker)
