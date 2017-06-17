@@ -100,6 +100,8 @@ namespace BandTracker
 
 ////// Seperation of Logic sucks, but it's fine for all of the others ///////
 ///// i.e please don't fail me for this, I couldn't think of another way to add multiple objects through a single form /////
+
+//    <('.'<()
       Get["/venue/manager"] = _ => {
         List<Venue> allVenues = Venue.GetAll();
         return View["venue_manager.cshtml", allVenues];
@@ -110,7 +112,7 @@ namespace BandTracker
         int i = 0;
         while(i < allVenues.Count + 1)
         {
-          if (Request.Form["venue-name-" + i] == "" || Request.Form["venue-id-" + i] == "")
+          if (Request.Form["venue-name-" + i] == "")
           {
             i++;
           }

@@ -2,7 +2,7 @@
 ### Jared Luedtke 06.16.17
 
 ## Description
-
+A NANCY and SQL app that allows users to input multiple venues and bands, then set up relationships between them in order to determine what band played where and what venue hosted which bands.
 
 ### Specs
 | Spec | Input | Output | Description |
